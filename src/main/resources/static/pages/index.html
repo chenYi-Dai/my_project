@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+
+<script src="/pages/js/vue-router@3.0.1.js"></script>
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.4.6/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+
+
+<style type="text/css">
+@import url("//unpkg.com/element-ui@2.4.6/lib/theme-chalk/index.css");
+@import url("//unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css");
+.el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+  
+  .el-aside {
+    background-color: rgb(84, 92, 100);
+    color: #333;
+    windth:200px;
+    line-height: 200px;
+  }
+  
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
+  }
+body {
+	background-color: #5421;
+	overflow-x:hidden;
+	overflow-y:hidden;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 700px;
+  }
+  .el-menu--collapse{
+  	width: 64px;
+    min-height: 700px;
+  }
+/* .el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+  } 
+  .el-aside {
+    color: #333;
+  }*/
+
+</style>
+</head>
+<body>
+<div id="app">
+
+<el-container style=" border: 1px solid #eee">
+  <el-header>Header</el-header>
+  <el-container>
+   
+	<el-aside width="220px" style="background-color: #545c64; float:left">
+	    <el-menu background-color="rgb(147, 158, 169)" style="height:100%" @select="selectOptions">
+	      <el-submenu index="1">
+	        <template slot="title"><i class="el-icon-message"></i>系统管理</template>
+	          <el-menu-item index="menuManager">菜单管理</el-menu-item>
+	          <el-menu-item index="roleManager">用户管理</el-menu-item>
+	          <el-menu-item index="userManager">角色管理</el-menu-item>
+	        </el-menu-item-group>
+	        <el-submenu index="1-4">
+	          <template slot="title">选项4</template>
+	          <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+	        </el-submenu>
+	      </el-submenu>
+	      <el-submenu index="2">
+	        <template slot="title"><i class="el-icon-menu"></i>导航二</template>
+	        <el-menu-item-group>
+	          <el-menu-item index="2-1">选项1</el-menu-item>
+	          <el-menu-item index="2-2">选项2</el-menu-item>
+	        </el-menu-item-group>
+	          <el-menu-item index="2-3">选项3</el-menu-item>
+	        </el-menu-item-group>
+	        <el-submenu index="2-4">
+	          <template slot="title">选项4</template>
+	          <el-menu-item index="2-4-1">选项4-1</el-menu-item>
+	        </el-submenu>
+	      </el-submenu>
+	      <el-submenu index="3">
+	        <template slot="title"><i class="el-icon-setting"></i>导航三</template>
+	        <el-menu-item-group>
+	          <template slot="title"></template>
+	          <el-menu-item index="3-1">选项1</el-menu-item>
+	          <el-menu-item index="3-2">选项2</el-menu-item>
+	        </el-menu-item-group>
+	        <el-menu-item-group title="分组2">
+	          <el-menu-item index="3-3">选项3</el-menu-item>
+	        </el-menu-item-group>
+	        <el-submenu index="3-4">
+	          <template slot="title">选项4</template>
+	          <el-menu-item index="3-4-1">选项4-1</el-menu-item>
+	        </el-submenu>
+	      </el-submenu>
+	    </el-menu>
+	  </el-aside>
+    <el-container>
+      <el-main style="800px">
+      	<iframe name="showhere" id="show-iframe" frameborder=0 :src="curPage" width="100%" height="650px" scrolling="auto" ></iframe>
+      </el-main>
+      <el-footer>
+    		<span style="text-align:center;display:block">版权所属&nbsp&nbsp@<a href="" style="text-decoration:none">陈意</a>&nbsp联系方式&nbsp:&nbsp564217869@qq.com</span>
+      </el-footer>
+    </el-container>
+  </el-container>
+</el-container>
+
+
+
+</div>
+<script type="text/javascript">
+	var vue = new Vue({
+		el:'#app',
+		data:{
+			activeIndex2: '1',
+			tableData:[],
+			curPage:'/pages/menus/menuManager.html',
+			isCollapse: false,
+		},
+		methods:{
+			selectOptions:function(key){
+				var d = this;
+				console.log("key==="+key)
+	    		switch(key){
+	    			case "menuManager"	:	d.getRouter("/pages/menus/menuManager.html");
+	    			case "roleManager"	:	d.getRouter("/pages/menus/roleManager.html");
+	    			case "userManager"	:	d.getRouter("/pages/menus/userManager.html");
+	    		}
+	    	},
+	    	oopenAndClose:function(){
+	    		var d = this;
+	    		if(d.isCollapse == 'true'){
+	    			d.isCollapse = 'false';
+	    		}else{
+	    			d.isCollapse == 'true';
+	    		}
+	    	},
+	    	getRouter(path){
+	    		console.log(path);
+		        this.curPage=path;
+		        window [this.baseAdress][this.baseAdressUrl] = window.location.protocol
+		        	+ "//"+ window.location.host+ "/emp/portal#/" +path;
+		        document.getElementById('show-iframe').contentWindow.location.reload();
+	    	},
+	    	handleOpen(key, keyPath) {
+		        console.log(key, keyPath);
+		    },
+		    handleClose(key, keyPath) {
+		        console.log(key, keyPath);
+		    },
+		    getCookie:function(cname){
+			    varname=cname+"=";
+			    var ca = document.cookie.split(';');
+			    for(var i=0; i<ca.length; i++){
+				    var c = ca[i].trim();
+				    if(c.indexOf(name)==0){
+				    	return(c.substring(name.length,c.length));
+				   	}
+				    return "";
+			    }
+			},
+	    	handleSelect(key, keyPath) {
+            },
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+server:
+  port: 8081
+spring:
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+  application:
+    name: /emp/portal
+#数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/jtsys
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+#   数据源基本配置
+    type: com.alibaba.druid.pool.DruidDataSource
+#   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+#   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#logging:
+#  path: D:\work_space\study_spring\study_boot_demo\log
+#  level:
+#    xatu.zsl: debug #不同目录下的日志可配置不同级别
+#    org.springfromework.web: info
+#    org.hibernate: error
+mybatis:
+  type-aliases-package: org.spring.boot.demo
+  # 指定sql映射文件位置
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  check-config-location: true
+  # 指定全局配置文件位置
+  config-location: classpath:mybatis/mybatis-config.xml
+  #日志配置.level.com.xiaolyuh=debug
+logging:
+  path: D:\work_space\study_spring\study_boot_demo\log
+  level:
+    org.spring.boot.demo.entity: debug
+    org.spring.boot.demo.service.impl: debug
+    org.spring.boot.demo.controller: debug
+    #开启输出sql语句 debug 为输出sql语句
+    org.spring.boot.demo.mapper: info
+    com.imooc.activemq: debug
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

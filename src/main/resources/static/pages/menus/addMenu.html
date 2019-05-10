@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/pages/js/moment.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+
+<style type="text/css">
+@import url("//unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css");
+</style>
+</head>
+<body>
+<div id="app">
+	<el-row   :gutter="32" >
+				<el-form :inline="true" :model="addform" ref="addform" class="demo-form-inline">
+					<el-col :span="8">
+				  <el-form-item label="名字 :" prop="name">
+				    <el-input v-model="addform.name" placeholder="名字"></el-input>
+				  </el-form-item>
+				  </el-col>
+					<el-col :span="8">
+				  <el-form-item label="备注 :" prop="note">
+				    <el-input v-model="addform.note" placeholder="备注"></el-input>
+				  </el-form-item>
+				  </el-col>
+				  <el-col :span="8">
+				  <el-form-item label="路径 :" prop="url">
+				  	<el-input v-model="addform.url" placeholder="路径"></el-input>
+				    <!-- <el-select v-model="addform.region" placeholder="活动区域">
+				      <el-option label="区域一" value="shanghai"></el-option>
+				      <el-option label="区域二" value="beijing"></el-option>
+				    </el-select> -->
+				  </el-form-item>
+				  </el-col>
+				</el-form>
+			</el-row>	
+			<el-row>
+				<el-upload
+				  class="upload-demo"
+				  ref="upload"
+				  action="/upload2"
+				  :on-preview="handlePreview"
+				  :on-remove="handleRemove"
+				  :file-list="fileList"
+				  :auto-upload="false">
+				  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+				  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+				  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+				</el-upload>
+			</el-row>
+</div>
+
+<script type="text/javascript">
+	var vue = new Vue({
+		el:'#app',
+		data:{
+			addform:{
+				
+			},
+			fileList:[]
+		},
+		methods:{
+			submitUpload() {
+		        console.log(this.$refs.upload)
+				this.$refs.upload.submit();
+		        
+		      },
+		      handleRemove(file, fileList) {
+		        console.log(file, fileList);
+		      },
+		      handlePreview(file) {
+		        console.log(file);
+		      }
+		}
+	});
+</script>
+</body>
+</html>

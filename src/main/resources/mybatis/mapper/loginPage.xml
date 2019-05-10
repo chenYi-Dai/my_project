@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.boot.demo.mapper.ILoginMapper">
+	<select id="vilaUser" resultType="org.spring.boot.demo.entity.LoginUserEntity">
+		SELECT 	t.user_id AS userId,
+				t.user_name AS userName,
+				t.password AS password,
+				t.createdUser AS createUser,
+				t.modifiedUser AS modifiedUser,
+				t.email AS email
+					FROM 
+				t_user_info t WHERE user_name =#{userName}
+	</select>
+	
+	<insert id="insertUserInfo">
+		INSERT INTO t_user_info (
+				user_name,
+				PASSWORD,
+				createDate,
+				modifiedTime,
+				modifiedUser,
+				createdUser,email)
+		VALUE
+				(#{userName},
+				 #{userName},
+				 NOW(),NOW(),
+				 'system',
+				 'system',
+				 'chenyi@123.com') 
+	</insert>
+</mapper>

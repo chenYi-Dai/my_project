@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.boot.demo.mapper.IMenuInfoMapper">
+	<sql id="queryAll">
+		SELECT t.id AS id ,
+			t.name AS NAME,
+			t.url AS url,
+			t.type AS TYPE,
+			t.sort AS sort,
+			t.note AS note,
+			t.parentId AS parentId,
+			t.permission AS permission,
+			t.createdTime AS createdTime,
+			t.modifiedTime AS modifiedTime,
+			t.createdUser AS createdUser,
+			t.modifiedUser AS modifiedUser
+			FROM sys_menus t
+	</sql>
+	<sql id="switchInfoQuery">
+		where 1 = 1
+	</sql>
+	
+	<select id="queryListAll" resultType="org.spring.boot.demo.entity.MenuEntity">
+		<include refid="queryAll"></include>
+		<include refid="switchInfoQuery"></include>
+	</select>
+	
+	<insert id="createMenuInfo" parameterType="org.spring.boot.demo.entity.MenuEntity">
+		insert into sys_menus(name,url,TYPE,sort,note,parentId,permission,createdTime,modifiedTime,
+					createdUser,modifiedUser)
+		VALUES(
+					#{name},#{url},#{type},#{sort},#{note},#{parentId},#{permission},
+					NOW(),NOW(),#{createdUser},#{modifiedUser})
+	</insert>
+</mapper>
